@@ -13,7 +13,7 @@ setup(
     description="Image Processing package using skimage",
     long_description=page_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/tiemi/image_processing-package",
+    url="https://github.com/Clebiotalves/Bancos-de-dados.git",
     packages = find_packages(),
     install_requires=requirements,
     pyton_requires='>=3.5',
