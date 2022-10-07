@@ -13,7 +13,7 @@ setup(
     description="Image Processing package using skimage",
     long_description=page_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Clebiotalves/Bancos-de-dados.git",
+    url="https://github.com/Clebiotalves/Bancos-de-dados",
     packages = find_packages(),
     install_requires=requirements,
     pyton_requires='>=3.5',
