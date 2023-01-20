@@ -131,7 +131,89 @@ class Historico:
         )
     
 class Transacao(ABC):
+    @property
+    @abstractproperty
+    def valor(self):
+        pass
+    
+    @abstractclassmethod
+    def registrar(self, conta):
+        pass
+    
     
 class Saque(Transacao):
+    def __init__(self, valor):
+        self._valor = valor
+        
+    @property
+    def valor(self):
+        return self._valor
+    
+    def registrar(self, conta):
+        sucesso_transacao = conta.sacar(self.valor)
+        
+        if sucesso_transacao:
+            conta.historico.adicionar_transacao(self)
+            
     
 class Deposito(Transacao):
+    def __init__(self, valor):
+        self._valor = valor
+        
+    @property
+    def valor(self):
+        return self._valor
+    
+    def registrar(self, conta):
+        sucesso_transacao = conta.depositar(self.valor)
+        
+        if sucesso_transacao:
+            conta.historico.adicionar_transacao(self)
+ 
+def menu(): 
+    menu = """\n
+    ==============MENU==============
+    [d]\tDepositar
+    [s]\tSacar
+    [e]\tExtrato
+    [nc]\tNova conta
+    [lc]\tListar contas
+    [nu]\tNovo usuário
+    [q]\tSair
+    ==> """
+    return input(textwrap.dedent(menu))
+
+
+def filtrar_cliente(cpf, cliente):
+    clientes_filtrados = [cliente for cliente in clientes if clientes.cpf ==cpf]
+    return clientes_filtrados[0] if clientes_filtrados else None
+
+def recuperar_conta_cliente(cliente):
+    if not cliente.contas:
+        print("\n@@@ Cliente não possui conta! @@@")
+        return
+    
+    #FIXME: não permite cliente escolher a conta
+    return cliente.contas[0]
+
+def depositar(clientes):
+    cpf =input("Informe o CPF do cliente: ")
+    cliente = filtrar_cliente(cpf, cliente)
+    
+    if not cliente:
+        print("\n@@@ Cliente não encontrado! @@@")
+        return
+    
+    valor = float(input("Informe o valor do depósito: "))
+    transacao = Deposito(valor)
+    
+    conta = recuperar_conta_cliente(cliente)
+    if not conta:
+        return
+    
+def main():
+    clientes = []
+    contas = []
+    while True:   
+    
+           
